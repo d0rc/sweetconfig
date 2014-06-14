@@ -33,8 +33,12 @@ end
 
 defmodule Sweetconfig.Utils do
   def load_configs do
-    case File.ls(:code.priv_dir(:application.get_all_env(:sweetconfig)[:app] || :sweetconfig)) do
-      {:ok, files} -> process_files(files) |> push_to_ets 
+    path = :code.priv_dir(:application.get_all_env(:sweetconfig)[:app] || :sweetconfig) |> :erlang.list_to_binary
+    case File.ls(path) do
+      {:ok, files} -> 
+        Enum.map(files, fn file -> path <> "/" <> file end) 
+          |> process_files 
+          |> push_to_ets 
       {:error, _} -> {:error, :no_configs}
     end
   end
@@ -76,7 +80,7 @@ defmodule Sweetconfig.Utils do
   end
 
   defp load_config(file) do
-    case :yaml.load_file("priv/" <> file, [:implicit_atoms]) do
+    case :yaml.load_file(file, [:implicit_atoms]) do
       {:ok, data} -> data
       _err -> raise "Failed to parse configuration file #{file} with error #{inspect _err}"
     end

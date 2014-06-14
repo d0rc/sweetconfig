@@ -7,3 +7,10 @@ exrabbit:
    type: list
   username: "username"
   password: "password"
+ test_queue:
+  host:
+   value: 127.0.0.1
+   type: list
+  username: 
+   value: somename
+   type: binary

@@ -65,6 +65,13 @@ defmodule Sweetconfig.Utils do
   defp pre_process(%{type: type, value: value}) when is_binary(value) do
     case type do
       :list -> :erlang.binary_to_list(value)
+      :binary -> value
+    end
+  end
+  defp pre_process(%{type: type, value: value}) when is_atom(value) do
+    case type do
+      :list -> :erlang.atom_to_list(value)
+      :binary -> :erlang.atom_to_binary(value, :utf8)
     end
   end
   defp pre_process(map) when is_map(map) do

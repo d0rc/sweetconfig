@@ -10,4 +10,7 @@ defmodule SweetconfigTest do
   test "deep get works" do
   	assert ["127.0.0.1", "127.0.0.2"] = Sweetconfig.get([:cqlex, :pool])
   end
+  test "types working" do
+  	assert "somename" = Sweetconfig.get([:exrabbit, :test_queue, :username])
+  end
 end

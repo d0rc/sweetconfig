@@ -1,0 +1,1 @@
+%{"yamler": {:git, "git://github.com/goertzenator/yamler.git", "5084e38b7bf34fa74d1d064b3eec5cc185e6ca4b", [branch: "mapping_as_map"]}}

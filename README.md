@@ -1,6 +1,8 @@
 Sweetconfig
 ===========
 
+[![Build Status](https://travis-ci.org/d0rc/sweetconfig.png?branch=master "Build Status")](http://travis-ci.org/d0rc/sweetconfig)
+
 Place configuration YAML files in `priv/` directory of your root application. Add following section to your `config.exs` file:
 
 

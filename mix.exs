@@ -4,7 +4,6 @@ defmodule Sweetconfig.Mixfile do
   def project do
     [app: :sweetconfig,
      version: "0.0.1",
-     elixir: "~> 0.14.1-dev",
      deps: deps]
   end
 

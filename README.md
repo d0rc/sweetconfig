@@ -24,3 +24,4 @@ Now you can read configuration from any point at your app like this:
 
 
 TBD: notification service on configuration changes.
+

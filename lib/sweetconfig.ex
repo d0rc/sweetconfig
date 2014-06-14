@@ -28,7 +28,12 @@ defmodule Sweetconfig do
       [] -> nil
     end
   end
-  def get(path), do: :ets.lookup(:sweetconfig, path)
+  def get(path) do
+    case :ets.lookup(:sweetconfig, path) do
+      [] -> nil
+      [{^path, config}] -> config
+    end
+  end
 end
 
 defmodule Sweetconfig.Utils do

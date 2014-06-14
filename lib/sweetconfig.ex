@@ -33,7 +33,7 @@ end
 
 defmodule Sweetconfig.Utils do
   def load_configs do
-    case File.ls("priv/") do
+    case File.ls(:code.priv_dir(:application.get_all_env(:sweetconfig)[:app] || :sweetconfig)) do
       {:ok, files} -> process_files(files) |> push_to_ets 
       {:error, _} -> {:error, :no_configs}
     end

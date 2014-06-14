@@ -12,6 +12,7 @@ defmodule Sweetconfig do
     ]
 
     :sweetconfig = :ets.new :sweetconfig, [:named_table, {:read_concurrency, true}, :public, :protected]
+    Sweetconfig.Utils.load_configs
     opts = [strategy: :one_for_one, name: Sweetconfig.Supervisor]
     Supervisor.start_link(children, opts)
   end
@@ -40,9 +41,7 @@ defmodule Sweetconfig.Utils do
 
   defp push_to_ets([]), do: []
   defp push_to_ets([configs]) do
-    IO.puts "#{inspect configs}"
     for {key, value} <- configs do
-      IO.puts "Inserting #{inspect key} into ets"
       :ets.insert(:sweetconfig, {key, value})
     end
   end

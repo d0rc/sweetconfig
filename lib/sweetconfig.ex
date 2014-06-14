@@ -22,6 +22,12 @@ defmodule Sweetconfig do
     get_in(config, path)
   end
 
+  def get(path, defaults) do
+    case get(path) do
+      nil -> defaults
+      values -> values
+    end
+  end
   def get([root | path]) do
     case :ets.lookup(:sweetconfig, root) do
       [{^root, config}] -> lookup_config(config, path)

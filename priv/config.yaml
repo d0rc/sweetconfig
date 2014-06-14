@@ -2,7 +2,8 @@ cqlex:
  pool: ["127.0.0.1", "127.0.0.2"]
 exrabbit:
  keno_queue:
-  host: 127.0.0.1
-  host.type: list
+  host:
+   value: 127.0.0.1
+   type: list
   username: "username"
   password: "password"

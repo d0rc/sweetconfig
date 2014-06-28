@@ -43,8 +43,12 @@ defmodule Sweetconfig do
 end
 
 defmodule Sweetconfig.Utils do
+  @app Mix.Project.config[:app]
+  defp get_config_app do
+    :application.get_all_env(:sweetconfig)[:app] || @app
+  end
   def load_configs do
-    path = :code.priv_dir(:application.get_all_env(:sweetconfig)[:app] || :sweetconfig) |> :erlang.list_to_binary
+    path = :code.priv_dir(get_config_app) |> :erlang.list_to_binary
     case File.ls(path) do
       {:ok, files} -> 
         Enum.map(files, fn file -> path <> "/" <> file end) 

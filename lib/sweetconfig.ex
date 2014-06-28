@@ -31,13 +31,21 @@ defmodule Sweetconfig do
   def get([root | path]) do
     case :ets.lookup(:sweetconfig, root) do
       [{^root, config}] -> lookup_config(config, path)
-      [] -> nil
+      [] -> 
+        case :application.get_all_env(root) do
+          [] -> nil
+          config -> lookup_config(config, path)
+        end
     end
   end
   def get(path) do
     case :ets.lookup(:sweetconfig, path) do
-      [] -> nil
       [{^path, config}] -> config
+      [] -> 
+        case :application.get_all_env(path) do
+          [] -> nil
+          config -> config
+        end
     end
   end
 end
@@ -47,6 +55,7 @@ defmodule Sweetconfig.Utils do
   defp get_config_app do
     :application.get_all_env(:sweetconfig)[:app] || @app
   end
+  
   def load_configs do
     path = :code.priv_dir(get_config_app) |> :erlang.list_to_binary
     case File.ls(path) do
